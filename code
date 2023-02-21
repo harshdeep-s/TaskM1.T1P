@@ -1,0 +1,45 @@
+
+int distance1 = 0;
+int num;
+int distance2 = 0;
+int triggerPin = 8;
+int echoPin = 8;
+
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+
+  pinMode(triggerPin, OUTPUT);
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+ 
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+  pinMode(echoPin, INPUT);
+
+  num = pulseIn(echoPin, HIGH);
+  distance2 = 0.01723 * num;
+
+  distance1 = (distance2 / 2.54);
+  if(distance1 > 3 && distance2 < 324)
+  {
+   digitalWrite(LED_BUILTIN, HIGH);
+  }
+ 
+  else
+  {
+    digitalWrite( LED_BUILTIN, LOW);
+  }
+  Serial.print(distance1);
+  Serial.print("in, ");
+  Serial.print(distance2);
+  Serial.println("cm");
+  delay(100);
+}
